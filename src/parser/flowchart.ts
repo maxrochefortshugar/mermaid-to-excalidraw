@@ -357,6 +357,7 @@ const parseEdge = (
 
   return {
     ...edge,
+		id: edgeIndex ? `${edge.id}-${edgeIndex}` : edge.id,
     ...edgePositionData,
     text: entityCodesToText(edge.text),
   };

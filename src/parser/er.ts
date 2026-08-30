@@ -260,6 +260,17 @@ const getRelationshipPaths = (
     return [directPath];
   }
 
+  const endpointToken = (value: string) =>
+    value.replace(/^entity-/, "").replace(/-\d+$/, "");
+  const startToken = endpointToken(edge.start);
+  const endToken = endpointToken(edge.end);
+  const compatiblePaths = Array.from(
+    containerEl.querySelectorAll<SVGPathElement>('path[data-edge="true"]')
+  ).filter((path) => path.id.includes(startToken) && path.id.includes(endToken));
+  if (compatiblePaths.length && edge.start !== edge.end) {
+    return [compatiblePaths[0]];
+  }
+
   if (edge.start !== edge.end) {
     return [];
   }
@@ -304,7 +315,15 @@ const parseEntity = (
   entity: EntityNode,
   containerEl: Element
 ): { container: Container; lines: Line[]; text: Text[] } => {
-  const domNode = containerEl.querySelector<SVGGElement>(`[id="${entity.id}"]`);
+  const tokens = [entity.id, entity.label, entity.alias]
+    .filter((value): value is string => Boolean(value))
+    .map((value) => value.replace(/^entity-/, "").replace(/-\d+$/, ""));
+  const domNode = containerEl.querySelector<SVGGElement>(`[id="${entity.id}"]`) ||
+    Array.from(containerEl.querySelectorAll<SVGGElement>("g[id]"))
+      .find((candidate) => {
+        const id = candidate.id;
+        return tokens.some((token) => id === token || id.includes(`-${token}-`) || id.endsWith(`-${token}`));
+      });
   if (!domNode) {
     throw new Error(`ER entity ${entity.id} not found in rendered SVG`);
   }

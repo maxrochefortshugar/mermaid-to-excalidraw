@@ -1,3 +1,11 @@
+## 2.1.1-decomposition.1
+
+- Add `parseMermaidToExcalidrawStrict` and export typed semantic parser data.
+- Reject image and file fallbacks for editable diagram imports.
+- Support Mermaid 11.17 SVG identifiers for strict ERD conversion.
+- Give parallel flowchart edges stable unique identifiers.
+- Pin patched production dependencies; `npm audit --omit=dev` reports zero findings.
+
 ## Unreleased
 
 ### v2.1.0

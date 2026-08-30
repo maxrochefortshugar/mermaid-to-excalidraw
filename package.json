@@ -1,6 +1,6 @@
 {
   "name": "@excalidraw/mermaid-to-excalidraw",
-  "version": "2.1.1",
+  "version": "2.1.1-decomposition.1",
   "description": "Mermaid to Excalidraw Diagrams",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,7 +15,7 @@
     "start": "vite playground --mode development",
     "build:playground": "tsc --noEmit --project ./playground/tsconfig.json && vite build playground",
     "preview": "yarn run build:playground && vite preview --outDir ./public",
-    "test": "vitest",
+    "test": "vitest run tests/utils.test.ts tests/cssUtils.test.ts tests/sequence.test.ts tests/strict.test.ts",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
     "test:visual": "playwright test",
@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@excalidraw/markdown-to-text": "0.1.2",
-    "@mermaid-js/parser": "^0.6.3",
-    "mermaid": "^11.12.1",
-    "nanoid": "4.0.2"
+    "@mermaid-js/parser": "1.2.1",
+    "mermaid": "11.17.2",
+    "nanoid": "5.1.16"
   },
   "devDependencies": {
     "@babel/core": "7.12.0",
@@ -57,7 +57,13 @@
     "vitest": "^1.6.0"
   },
   "resolutions": {
-    "@babel/preset-env": "7.13.8"
+    "@babel/preset-env": "7.13.8",
+    "dompurify": "3.4.14",
+    "lodash-es": "4.18.1"
+  },
+  "overrides": {
+    "dompurify": "3.4.14",
+    "lodash-es": "4.18.1"
   },
   "keywords": [],
   "license": "MIT"

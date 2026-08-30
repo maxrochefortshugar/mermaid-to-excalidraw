@@ -2,6 +2,11 @@
 
 Convert mermaid diagrams to excalidraw
 
+> This fork adds a strict semantic conversion entry point for Decomposition.
+> `parseMermaidToExcalidrawStrict` accepts flowcharts, sequence diagrams, and
+> ERDs, exposes their typed intermediate representation, and rejects image or
+> binary fallbacks. The package stays MIT licensed and tracks upstream fixes.
+
 ## Set up
 
 Install packages:
